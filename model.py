@@ -66,7 +66,11 @@ class Vit_For_Age(nn.Module):
 '''
 support model list:
 'vit_small_patch16_224'
+'vit_base_patch16_224'
+'vit_tiny_patch16_224'
 'resnet50'
+'resnet34'
+'resnet18'
 '',
 
 '''
