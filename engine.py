@@ -59,7 +59,7 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch):
     avg_acc = total_correct_num / len(data_loader) * 100.0
     avg_loss = total_age_loss / len(data_loader)
     print(f"Elapse time: {time.time()-start_time:.2f} | train_acc:{avg_acc:.2f} | train_age_loss:{avg_loss:.4f}")
-
+    return avg_acc, avg_loss
 
 @torch.no_grad()
 def evaluate(data_loader, model, device):

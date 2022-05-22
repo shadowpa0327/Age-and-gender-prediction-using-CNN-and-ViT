@@ -112,7 +112,7 @@ def main(args):
 
     # main training loop
     for epoch in range(args.start_epoch, args.epochs):
-        train_one_epoch(model, optimizer, data_loader_train, device, epoch)
+        train_acc, train_loss = train_one_epoch(model, optimizer, data_loader_train, device, epoch)
 
         if args.output_dir:
             checkpoint_paths = output_dir / 'checkpoint.pth'  
@@ -153,7 +153,7 @@ def main(args):
         print(f"Max accuracy: {max_accuracy:.2f}%, Min MAE loss: {loss:.2f}")
         if args.output_dir:
             with (output_dir / "log.txt").open("a") as f:
-                f.write(f"Testing: Epoch:{epoch}/{args.epochs} | gender_accuracy {max_accuracy:.2f} | age_mae_loss {loss:.2f}\n")
+                f.write(f"Epoch:{epoch}/{args.epochs} | Training : gender_accuracy {train_acc:.2f} | age_mae_loss {train_loss:.2f}  | Testing: gender_accuracy {acc:.2f} | age_mae_loss {loss:.2f}\n")
 
 
     total_time = time.time() - start_time
@@ -164,11 +164,15 @@ def main(args):
 
 if __name__ == '__main__':
     config=[
-        '--batch-size' , '96',
+        '--batch-size' , '64',
         '--data-path', '/home/shadowpa0327/AFAD-Full',
         '--num_workers' , '8' ,
         '--epochs' , '200',
-        '--output_dir', 'transformer',
+        '--lr', '1e-5',
+        '--weight-decay', '0.05',
+        '--output_dir', 'Vit_small',
+        '--model', 'vit_small_patch16_224',
+        '--model-type', 'transformer'
         #'--eval'
     ]
     parser = argparse.ArgumentParser('AI_Final_Proj Hao Chun and evaluation script', parents=[get_args_parser()])
