@@ -56,22 +56,23 @@ from facenet_pytorch import MTCNN
 import torch
 
 class FaceDetector_mtcnn():
-        def __init__(self):
+        def __init__(self, confidence = 0.9):
             device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
             self.face_detection = MTCNN(keep_all=True, device=device)
+            self.confidience = confidence
 
         def detect(self, img):
-            print(img.shape)
-            if len(img) == 0 : return []
             img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            results, _ = self.face_detection.detect(img_rgb)
+            results, confidiences = self.face_detection.detect(img_rgb)
             if results is not None : 
                 faces = []
-                for box in zip(results):
+                for i, box in enumerate(zip(results)):
+                    if confidiences[i] < self.confidience:
+                        continue
                     x = int(box[0][0])
                     y = int(box[0][1])
                     w = int(box[0][2])
                     h = int(box[0][3])
-                    faces.append((x-10, y-10, w-x+20, h-y+20))
+                    faces.append((x, y, w-x, h-y))
                 return faces
             else : return []
