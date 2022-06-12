@@ -80,6 +80,4 @@ def build_model(model_name='resnet50', model_type = 'resnet' ,pretrained=True):
     elif model_type == 'transformer':
         model = Vit_For_Age(model_name=model_name, pretrained=pretrained)
 
-    print(model)
-
     return model
