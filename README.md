@@ -29,11 +29,13 @@ python main.py --data-path './AFAD-Full' --model vit_base_patch16_224 --model-ty
   - in our work, we test performance of three models with (v), testing result can be seen at evaluate.ipynb
 
 ## To using the face detection
-- There are two detection method **cv2** and **mediapipe**
+- There are three detection method **cv2**, **mediapipe** and **mtcnn**
 - There are three kind of pretrained model provided above in google drive
   - resnet50
   - VIT_small
   - VIT_base 
+
+- Real-time detection mode only works on Windows.
 ```
 python "face detect.py" -f cv2 -m VIT_small
 ```
