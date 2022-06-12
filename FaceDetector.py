@@ -27,7 +27,7 @@ class FaceDetector_cv2():
         return faces
 
 
-#import mediapipe as mp
+import mediapipe as mp
 
 class FaceDetector_mediapipe():
     def __init__(self):
