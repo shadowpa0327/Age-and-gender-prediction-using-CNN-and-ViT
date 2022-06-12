@@ -163,6 +163,7 @@ def main(args):
     
 
 if __name__ == '__main__':
+    '''
     config=[
         '--batch-size' , '64',
         '--data-path', '/home/shadowpa0327/AFAD-Full',
@@ -175,8 +176,9 @@ if __name__ == '__main__':
         '--model-type', 'transformer'
         #'--eval'
     ]
+    '''
     parser = argparse.ArgumentParser('AI_Final_Proj Hao Chun and evaluation script', parents=[get_args_parser()])
-    args = parser.parse_args(args=config)
+    args = parser.parse_args()
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     main(args)
