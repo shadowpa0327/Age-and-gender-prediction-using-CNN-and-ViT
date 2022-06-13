@@ -37,9 +37,9 @@ python main.py --data-path './AFAD-Full' --model vit_base_patch16_224 --model-ty
 
 - Run Real-time detection (only works on Windows)
 ```
-python "face detect.py" -f mtcnn -m VIT_small
+python "face detect.py" -f mediapipe -m VIT_small
 ```
 - We can also detect a single picture instead of make a detection screen
 ```
-python "face detect.py" -f mtcnn -m VIT_small -p ./picture.png
+python "face detect.py" -f mediapipe -m VIT_small -p ./picture.png
 ```
