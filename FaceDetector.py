@@ -63,6 +63,10 @@ class FaceDetector_mtcnn():
     #input RGB image
     #output a list of face region in the form of (left, top, width, height)            
     def detect(self, img):
+        width, height, _ = img.shape
+        if width * height < 10000:
+            return []
+        
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         results, confidiences = self.face_detection.detect(img_rgb)
         if results is not None : 
