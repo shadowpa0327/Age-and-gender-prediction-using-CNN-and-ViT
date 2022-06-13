@@ -34,8 +34,8 @@ class FaceDetector_mediapipe():
         self.mp_face_detection = mp.solutions.face_detection
         self.face_detection = self.mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.6)
 
-    #input gray scale image
-    #output a list of face region in the form of (x, y, w, h)
+    #input RGB image
+    #output a list of face region in the form of (left, top, width, height)
     def detect(self, img):
         results = self.face_detection.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         if not results.detections:
@@ -56,23 +56,24 @@ from facenet_pytorch import MTCNN
 import torch
 
 class FaceDetector_mtcnn():
-        def __init__(self, confidence = 0.9):
-            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-            self.face_detection = MTCNN(keep_all=True, device=device)
-            self.confidience = confidence
-
-        def detect(self, img):
-            img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            results, confidiences = self.face_detection.detect(img_rgb)
-            if results is not None : 
-                faces = []
-                for i, box in enumerate(zip(results)):
-                    if confidiences[i] < self.confidience:
-                        continue
-                    x = int(box[0][0])
-                    y = int(box[0][1])
-                    w = int(box[0][2])
-                    h = int(box[0][3])
-                    faces.append((x, y, w-x, h-y))
-                return faces
-            else : return []
+    def __init__(self, confidence = 0.9):
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        self.face_detection = MTCNN(keep_all=True, device=device)
+        self.confidience = confidence
+    #input RGB image
+    #output a list of face region in the form of (left, top, width, height)            
+    def detect(self, img):
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        results, confidiences = self.face_detection.detect(img_rgb)
+        if results is not None : 
+            faces = []
+            for i, box in enumerate(zip(results)):
+                if confidiences[i] < self.confidience:
+                    continue
+                x1 = int(box[0][0])
+                y1 = int(box[0][1])
+                x2 = int(box[0][2])
+                y2 = int(box[0][3])
+                faces.append((x1-5, y1-5, x2-x1+10, y2-y1+10))
+            return faces
+        else : return []
