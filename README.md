@@ -1,5 +1,10 @@
 # Age-and-gender-prediction-using-CNN-and-ViT
 
+## Enviornment
+- Python 3.8.10
+- For real-time detect, only work on Windows
+
+
 ## Download site
 - [Training Dataset](https://drive.google.com/file/d/1ZSqeOSU7-n2YxK91Ef5g4qOijACBdc0g/view)
 - [Pretrained Models](https://drive.google.com/drive/folders/1TEOAdkTWqijFA_UnDfv_R7FF_8AsbuJj?usp=sharing)
@@ -35,7 +40,7 @@ python main.py --data-path './AFAD-Full' --model vit_base_patch16_224 --model-ty
   - VIT_small
   - VIT_base 
 
-- Run Real-time detection (only works on Windows)
+- Run Real-time detection (only work on Windows)
 ```
 python "face detect.py" -f mediapipe -m VIT_small
 ```
